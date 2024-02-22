@@ -1,0 +1,24 @@
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import App from "./Components/Navbar/App";
+import ThemeProtfolio from "./Components/Portfolio/Portfolio";
+function Navigation() {
+  return (
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ThemeProtfolio>
+                <App />
+              </ThemeProtfolio>
+            }
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default Navigation;
