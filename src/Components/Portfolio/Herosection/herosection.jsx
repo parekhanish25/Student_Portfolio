@@ -7,7 +7,7 @@ import { IoMail } from "react-icons/io5";
 import { IoLogoInstagram } from "react-icons/io5";
 import { IoLogoGithub } from "react-icons/io5";
 import { IoLogoLinkedin } from "react-icons/io5";
-import hero from '../../images/hero.jpg';
+import hero from '../../../images/hero.jpg';
 import { Container } from '@mui/material';
 const HeroSection = () => {
     const handleHover = (event) => {
@@ -61,7 +61,7 @@ const HeroSection = () => {
                     <Grid item xs={1} sm={1} md={1} lg={1}></Grid>
                     {/* Content grid items */}
                     <Grid item xs={9} sm={11} md={10} lg={6}>
-                        <Typography fontFamily={'Sora'} paragraph>
+                        <Typography fontFamily={'Sora'} color={'text.main'} textAlign={'justify'} paragraph>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultrices turpis.
                         </Typography>
                     </Grid>
@@ -108,7 +108,6 @@ const HeroSection = () => {
                 <img src={hero} width={200} alt='Image'></img>
             </Grid >}
         </Grid >
-
     );
 };
 export default HeroSection;

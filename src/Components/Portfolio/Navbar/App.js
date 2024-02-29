@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Grid, Button, Drawer, List, ListItem, ListItemText, IconButton, Typography } from '@mui/material';
 import { MdOutlineFileDownload, MdMenu } from 'react-icons/md';
-import '../../index.css';
+import '../../../../src/index.css';
 function Navbar() {
   const [isMobileView, setIsMobileView] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
