@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, TextField, Button, Typography, Avatar } from '@mui/material';
+import { Grid, TextField, Button, Typography, Avatar, Card } from '@mui/material';
 import axios from 'axios';
 const AboutMeSection = () => {
     const [description, setDescription] = useState('');
@@ -28,8 +28,11 @@ const AboutMeSection = () => {
         }
     }
     return (
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
+        <Grid container spacing={1}>
+
+            <Grid item xs={5}>
+            </Grid>
+            <Grid item xs={7}>
                 <Typography variant="h4">About Me</Typography>
             </Grid>
             <Grid item xs={12}>
@@ -43,24 +46,41 @@ const AboutMeSection = () => {
                     onChange={handleDescriptionChange}
                 />
             </Grid>
-            <Grid item xs={12}>
-                <input
-                    accept="image/*"
-                    id="contained-button-file"
-                    type="file"
-                    style={{ display: 'none' }}
-                    onChange={handleImageChange}
-                />
-                <label htmlFor="contained-button-file">
-                    <Button variant="contained" component="span">
-                        Upload Photo
+            <Grid container spacing={2} marginTop={1}>
+                <Grid item xs={2}>
+                    <input
+                        accept="image/*"
+                        id="contained-button-file"
+                        type="file"
+                        style={{ display: 'none' }}
+                        onChange={handleImageChange}
+                    />
+                </Grid>
+                <Grid item  >
+                    <label htmlFor="contained-button-file">
+                        <Button variant="contained" component="span">
+                            Upload Photo
+                        </Button>
+                    </label>
+                </Grid>
+                <Grid item xs={2}>
+                </Grid>
+                <Grid item xs={3}>
+                    <Button variant="contained" onClick={handleSubmit} component="span">
+                        Submit
                     </Button>
-                </label>
+                </Grid>
+            </Grid>
+            <Grid container spacing={2} marginTop={1} >
+                <Grid item xs={2}>
+                </Grid>
+                <Grid item xs={2}>
+                    <Card style={{ border: '1px solid black' }}>
+                        {image && <img src={image} alt="Project" style={{ maxWidth: '100px', display: 'block', marginTop: '10px' }} />}
+                    </Card>
+                </Grid>
 
             </Grid>
-            <Button variant="contained" onClick={handleSubmit} component="span">
-                Submit
-            </Button>
         </Grid>
     );
 };

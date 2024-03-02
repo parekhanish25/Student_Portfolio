@@ -11,15 +11,12 @@ import { Card, Grid } from '@mui/material';
 import ExperienceForm from './Exprience';
 import AboutMeSection from './Aboutme';
 import ProjectsSection from './Projects';
+import { Checkmark } from 'react-checkmark'
+import {Link} from 'react-router-dom';
 export default function Form() {
-  const steps = [1, 2, 3, 4, 5, 6]
+  const steps = [1, 2, 3, 4, 5]
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
-  const [completedSection, setCompletedSection] = React.useState([
-    false,
-    false,
-    false,
-  ]);
   const totalSteps = () => {
     return steps.length;
   };
@@ -50,11 +47,6 @@ export default function Form() {
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
-    setCompletedSection(prevCompletedSection => {
-      const updatedCompletedSection = [...prevCompletedSection]; // Create a copy of the previous array
-      updatedCompletedSection[activeStep] = true; // Update the element at index 2 to true
-      return updatedCompletedSection; // Return the updated array
-    });
     setCompleted(newCompleted);
     handleNext();
   };
@@ -70,7 +62,7 @@ export default function Form() {
           <Stepper nonLinear activeStep={activeStep}>
             {steps.map((label, index) => (
               <Step key={label} completed={completed[index]}>
-                <StepButton color="inherit" onClick={handleStep(index)}>
+                <StepButton onClick={handleStep(index)}>
                 </StepButton>
               </Step>
             ))}
@@ -80,26 +72,27 @@ export default function Form() {
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1 }}>
                   <center>
+                    <Checkmark size="xxLarge" />
                     Your Website Is Ready
                   </center>
-                  <Button variant="contained">CLick to Visit Your </Button>
+                  <Button variant="contained"><Link to="">CLick to Visit Your</Link> </Button>
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Box sx={{ flex: '1 1 auto' }} />
-                  <Button onClick={handleReset}>Reset</Button>
+                  {/* <Button onClick={handleReset}>Reset</Button> */}
                 </Box>
               </React.Fragment>
             ) : (
               <React.Fragment>
                 {/* {activeStep === 0 && <HeaderSection />} */}
-                {activeStep === 0 && <DetailsSection submit={completedSection[0]} />}
-                {activeStep === 1 && <EducationSection submit={completedSection[1]} />}
-                {activeStep === 2 && <ExperienceForm submit={completedSection[2]} />}
-                {activeStep === 3 && <AboutMeSection submit={completedSection[3]} />}
-                {activeStep === 4 && <ProjectsSection submit={completedSection[4]} />}
+                {activeStep === 0 && <DetailsSection submit={activeStep === 0 && completed[activeStep]} />}
+                {activeStep === 1 && <EducationSection submit={activeStep === 1 && completed[activeStep]} />}
+                {activeStep === 2 && <ExperienceForm submit={activeStep === 2 && completed[activeStep]} />}
+                {activeStep === 3 && <AboutMeSection submit={activeStep === 3 && completed[activeStep]} />}
+                {activeStep === 4 && <ProjectsSection submit={activeStep === 4 && completed[activeStep]} />}
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Button
-                    color="inherit"
+
                     disabled={activeStep === 0}
                     onClick={handleBack}
                     sx={{ mr: 1 }}
@@ -111,13 +104,11 @@ export default function Form() {
                     Next
                   </Button>
                   {activeStep !== steps.length &&
-                    (completed[activeStep] ? (
-                      'Finish'
-                    ) : (
-                      <Button onClick={handleComplete}>
+                    ((
+                      <Button disabled={completed[activeStep]} onClick={handleComplete}>
                         {completedSteps() === (totalSteps() - 1)
                           ? 'Finish'
-                          : 'Next'}
+                          : 'Finish'}
                       </Button>
                     ))}
                 </Box>

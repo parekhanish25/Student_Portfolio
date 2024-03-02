@@ -75,7 +75,7 @@ const DetailsSection = ({ submit }) => {
                         <TextField onChange={handleChange} value={Form.Github} name='Github' label="Github" variant="outlined" fullWidth margin="normal" />
                     </Grid>
                 </Grid>
-                <Button disabled={submit} onClick={handleSubmit}>
+                <Button variant='contained' disabled={submit} onClick={handleSubmit}>
                     Submit
                 </Button>
             </Grid>

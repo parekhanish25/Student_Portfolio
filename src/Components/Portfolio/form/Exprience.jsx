@@ -124,13 +124,18 @@ const ExperienceForm = () => {
 
                 </Grid>
             ))}
-            <Grid item xs={12}>
+            <Grid container spacing={2}>
+                <Grid item xs={3}></Grid>
+                <Grid item xs={4}>
                 <Button onClick={handleAddExperience} variant="outlined" color="primary">
                     Add Experience
                 </Button>
+                </Grid>
+                <Grid item xs={4}>
                 <Button onClick={handleSubmit} variant="contained" color="primary">
                     Submit
                 </Button>
+                </Grid>
             </Grid>
         </Grid>
     );

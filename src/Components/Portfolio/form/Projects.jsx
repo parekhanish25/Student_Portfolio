@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, TextField, Button, Typography, IconButton } from '@mui/material';
+import { Grid, TextField, Button, Typography, IconButton, Card } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 const ProjectsSection = () => {
@@ -120,19 +120,32 @@ const ProjectsSection = () => {
                                     Upload Image
                                 </Button>
                             </label>
-                            {Image && <img src={Image} alt="Project" style={{ maxWidth: '100px', display: 'block', marginTop: '10px' }} />}
+                            {Image && <Grid container spacing={2} marginTop={1} >
+                                <Grid item xs={6}>
+                                    <Card style={{ border: '1px solid black' }}>
+                                        {<img src={Image} alt="Project" style={{ maxWidth: '100px', display: 'block', marginTop: '10px' }} />}
+                                    </Card>
+                                </Grid>
+
+                            </Grid>}
                         </Grid>
                     </Grid>
 
                 </Grid>
             ))}
-            <Grid item xs={12}>
-                <Button onClick={handleAddProject} variant="outlined" color="primary">
-                    Add Project
-                </Button>
-                <Button variant="contained" onClick={handleSubmit} component="span">
-                    Submit
-                </Button>
+            <Grid container marginTop={2}>
+                <Grid item xs={2}>
+                </Grid>
+                <Grid item xs={5}>
+                    <Button onClick={handleAddProject} variant="outlined" color="primary">
+                        Add Project
+                    </Button>
+                </Grid>
+                <Grid item xs={5}>
+                    <Button variant="contained" onClick={handleSubmit} component="span">
+                        Submit
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     );

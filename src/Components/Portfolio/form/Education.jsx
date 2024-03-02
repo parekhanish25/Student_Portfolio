@@ -86,14 +86,18 @@ const DynamicDropdownList = () => {
 
                 </Grid>
             ))}
-            <Grid container marginTop={3}>
-                <Grid item lg={5}></Grid>
+            <Grid container spacing={2} marginTop={3}>
+                <Grid item xs={4}></Grid>
+                <Grid xs={3}>
                 <Button onClick={handleAddDropdown} variant="outlined" color="primary">
                     Add Skills
                 </Button>
+                </Grid>
+                <Grid xs={5}>
                 <Button onClick={handleSubmit} variant="contained" color="primary">
                     Submit
                 </Button>
+                </Grid>
             </Grid>
         </Grid>
     );
