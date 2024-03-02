@@ -1,10 +1,30 @@
-import React, { useState } from 'react';
-import { Grid, TextField, Button, Typography, Avatar, Card } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Grid, TextField, Button, Typography, Avatar, Card, FormControl, Select, MenuItem } from '@mui/material';
 import axios from 'axios';
+import { GridView } from '@mui/icons-material';
 const AboutMeSection = () => {
     const [description, setDescription] = useState('');
+    const [Dropdown, setDropdown] = useState([]);
     const [image, setImage] = useState(null);
-
+    const [Branch, setBranch] = useState('');
+    const [CGPA, setCGPA] = useState(0.0);
+    useEffect(() => {
+        handleFetch();
+    }, []);
+    const handleFetch = async () => {
+        try {
+            const res = await axios.get('/branch');
+            if (res.data.status === 200) {
+                setDropdown(res.data.Data);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    const handleChange = (event) => {
+        const { value } = event.target;
+        setBranch(value);
+    }
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
     };
@@ -45,6 +65,33 @@ const AboutMeSection = () => {
                     value={description}
                     onChange={handleDescriptionChange}
                 />
+            </Grid>
+            <Grid item xs={12}>
+            <Grid container>
+                <Grid item xs={5}>
+                    <FormControl fullWidth>
+                        <Select
+                            value={Branch}
+                            name='Branch'
+                            onChange={(event) => handleChange(event)}
+                        >
+                            {Dropdown.map((dropdown, index) => (
+                                <MenuItem key={index} value={dropdown.name}>{dropdown.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={2}></Grid>
+                <Grid item xs={5}>
+                    <TextField
+                        label="CGPA"
+                        variant="outlined"
+                        fullWidth
+                        value={CGPA}
+                        onChange={handleDescriptionChange}
+                    />
+                </Grid>
+                </Grid>
             </Grid>
             <Grid container spacing={2} marginTop={1}>
                 <Grid item xs={2}>

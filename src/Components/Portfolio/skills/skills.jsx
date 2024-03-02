@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect } from "react";
 
 const Skills = forwardRef((props, ref) => {
     const val = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -19,6 +19,9 @@ const Skills = forwardRef((props, ref) => {
         event.currentTarget.querySelector('p').style.filter = 'none';
 
     };
+    useEffect(() => {
+
+    });
     React.useEffect(() => {
         handleResize();
         window.addEventListener('resize', handleResize);

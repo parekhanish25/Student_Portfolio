@@ -17,6 +17,14 @@ function Navigation() {
               </ThemeProtfolio>
             }
           ></Route>
+          <Route
+            path="/Portfolio/:id"
+            element={
+              <ThemeProtfolio>
+                <ProtfolioPage />
+              </ThemeProtfolio>
+            }
+          ></Route>
           <Route path="/Form" element={<Form />}></Route>
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +9,9 @@ import { IoLogoGithub } from "react-icons/io5";
 import { IoLogoLinkedin } from "react-icons/io5";
 import hero from '../../../images/hero.jpg';
 import { Container } from '@mui/material';
-const HeroSection = () => {
+import axios from 'axios';
+const HeroSection = ({ id }) => {
+    const [Data, setData] = useState([]);
     const handleHover = (event) => {
         event.currentTarget.style.backgroundColor = 'black';
         event.currentTarget.querySelector('svg').style.filter = 'invert(100%)';
@@ -24,7 +26,20 @@ const HeroSection = () => {
     const handleResize = () => {
         setIsMobileView(window.innerWidth <= 700);
     };
+    useEffect(() => {
+        handleFetch();
+    }, []);
+    const handleFetch = async () => {
+        try {
+            const res = await axios.get(`/GetHeaderSection/${id}`);
+            if (res.data.status === 200) {
 
+                setData(res.data.Data);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
     React.useEffect(() => {
         handleResize();
         window.addEventListener('resize', handleResize);
@@ -36,7 +51,7 @@ const HeroSection = () => {
     return (
         <Grid container marginTop={'12vh'}>
             {isMobileView && < Grid item xs={12} md={4} marginBottom={10} container justifyContent="center" >
-                <img src={hero} width={200} alt='Image'></img>
+                <img src={Data.ProfilePic} width={200} alt='Image' />
             </Grid >}
             <Grid item lg={1}></Grid>
             <Grid item xs={12} sm={6} md={6} lg={6} >
@@ -48,10 +63,10 @@ const HeroSection = () => {
                     {/* Content grid items */}
                     <Grid item xs={11} sm={6} md={10} lg={6}>
                         <Typography fontFamily={'Sora'} variant="h4" gutterBottom>
-                            Hello, I am <span style={{ fontWeight: 'bolder' }}>John Doe</span>
+                            Hello, I am <span style={{ fontWeight: 'bolder' }} >{Data.Name}</span>
                         </Typography>
                         <Typography fontFamily={'Sora'} variant="subtitle1" gutterBottom>
-                            Software Engineer
+                            {Data.Role}
                         </Typography>
                     </Grid>
                 </Grid>
@@ -62,7 +77,8 @@ const HeroSection = () => {
                     {/* Content grid items */}
                     <Grid item xs={9} sm={11} md={10} lg={6}>
                         <Typography fontFamily={'Sora'} color={'text.main'} textAlign={'justify'} paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultrices turpis.
+                            {Data.Description}
+                            {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla at ultrices turpis. */}
                         </Typography>
                     </Grid>
                 </Grid>
@@ -102,12 +118,12 @@ const HeroSection = () => {
                         </center>
                     </Grid>
                 </Grid>
-            </Grid >
+            </Grid>
             {/* Column 2: Photo */}
             {!isMobileView && < Grid item xs={12} sm={6} md={6} lg={4} marginBottom={10} container justifyContent="center" >
-                <img src={hero} width={200} alt='Image'></img>
+                <img src={Data.ProfilePic} width={200} alt='Image'></img>
             </Grid >}
-        </Grid >
+        </Grid>
     );
 };
 export default HeroSection;

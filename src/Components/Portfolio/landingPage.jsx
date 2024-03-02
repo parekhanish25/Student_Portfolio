@@ -7,12 +7,15 @@ import Form from './form/form';
 import Experience from './experienceSection';
 import ProjectsSection from './form/Projects';
 import ProjectPage from './projectSection';
+import { useParams } from 'react-router-dom';
 
 const ProtfolioPage = () => {
+    const Parmas = useParams();
     const Projectref = useRef(null);
     const Expref = useRef(null);
     const Skillref = useRef(null);
     const Aboutref = useRef(null);
+    const { id } = Parmas;
 
     const scrollToProject = () => {
         if (Projectref.current) {
@@ -25,7 +28,6 @@ const ProtfolioPage = () => {
         }
     };
     const scrollToAboutMe = () => {
-        console.log('hi');
         if (Aboutref.current) {
             Aboutref.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -43,9 +45,9 @@ const ProtfolioPage = () => {
             <App
                 ScrollAbout={scrollToAboutMe} scrollSkill={scrollToSkills} ScrollProject={scrollToProject} ScrollExperience={scrollToExprience}
             />
-            <HeroSection />
+            <HeroSection id={id} />
             <div ref={Skillref}>
-                <Skills />
+                <Skills id={id} />
             </div>
             <div ref={Expref}>
                 <Experience />
