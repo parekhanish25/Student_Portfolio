@@ -7,14 +7,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import DetailsSection from './detail';
 import EducationSection from './Education';
-import { Card , Grid } from '@mui/material';
+import { Card, Grid } from '@mui/material';
 import ExperienceForm from './Exprience';
 import AboutMeSection from './Aboutme';
 import ProjectsSection from './Projects';
 export default function Form() {
-  const steps = [1,2,3,4,5,6]
+  const steps = [1, 2, 3, 4, 5, 6]
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+  const [completedSection, setCompletedSection] = React.useState([
+    false,
+    false,
+    false,
+  ]);
   const totalSteps = () => {
     return steps.length;
   };
@@ -45,6 +50,11 @@ export default function Form() {
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
+    setCompletedSection(prevCompletedSection => {
+      const updatedCompletedSection = [...prevCompletedSection]; // Create a copy of the previous array
+      updatedCompletedSection[activeStep] = true; // Update the element at index 2 to true
+      return updatedCompletedSection; // Return the updated array
+    });
     setCompleted(newCompleted);
     handleNext();
   };
@@ -70,7 +80,7 @@ export default function Form() {
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1 }}>
                   <center>
-                  Your Website Is Ready 
+                    Your Website Is Ready
                   </center>
                   <Button variant="contained">CLick to Visit Your </Button>
                 </Typography>
@@ -82,7 +92,7 @@ export default function Form() {
             ) : (
               <React.Fragment>
                 {/* {activeStep === 0 && <HeaderSection />} */}
-                {activeStep === 0 && <DetailsSection />}
+                {activeStep === 0 && <DetailsSection submit={completedSection[0]} />}
                 {activeStep === 1 && <EducationSection />}
                 {activeStep === 2 && <ExperienceForm />}
                 {activeStep === 3 && <AboutMeSection />}
