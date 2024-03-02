@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +9,7 @@ import { IoLogoGithub } from "react-icons/io5";
 import { IoLogoLinkedin } from "react-icons/io5";
 import hero from '../../../images/hero.jpg';
 import { Container } from '@mui/material';
-const AboutMe = () => {
+const AboutMe = forwardRef((props, ref) => {
     const handleHover = (event) => {
         event.currentTarget.style.backgroundColor = 'black';
         event.currentTarget.querySelector('svg').style.filter = 'invert(100%)';
@@ -31,14 +31,14 @@ const AboutMe = () => {
     }, []);
     return (
         <>
-            <center style={{ marginBottom: '2rem' }}>
+            <center ref={ref} style={{ marginBottom: '2rem' }}>
                 <Typography variant="h4" fontFamily={'Sora'}>About <span style={{ fontWeight: 'bolder' }}>Me</span></Typography>
             </center>
             <Grid container marginTop={'1vh'}>
                 <Grid item md={1} lg={1}></Grid>
                 {!isMobileView && < Grid item xs={12} sm={4} md={2} lg={4} marginBottom={10} marginTop={3} container justifyContent="center" >
-                   
-                        <img src={hero} width={200} height={350} alt='Image'></img>
+
+                    <img src={hero} width={200} height={350} alt='Image'></img>
                 </Grid >}
                 <Grid item xs={12} sm={8} md={9} lg={6} >
                     <Grid container>
@@ -51,9 +51,9 @@ const AboutMe = () => {
                             </Typography>
                         </Grid>
                     </Grid>
-                </Grid >
-            </Grid >
+                </Grid>
+            </Grid>
         </>
     );
-};
+});
 export default AboutMe;

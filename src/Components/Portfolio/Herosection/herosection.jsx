@@ -68,9 +68,9 @@ const HeroSection = () => {
                 </Grid>
                 {/* </Grid> */}
                 {/* Icons */}
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
                 <Grid item xs={12} md={8} sx={{ display: 'flex', justifyContent: 'space-around' }}  >
                     <Grid></Grid>
                     <Grid item xs={2} md={2} sx={{ borderRadius: '0.5rem', padding: '0.3rem', border: '2px solid black' }} onMouseOver={handleHover} onMouseOut={handleLeave}>

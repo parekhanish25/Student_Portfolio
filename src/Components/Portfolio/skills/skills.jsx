@@ -1,9 +1,8 @@
-import { Grid, IconButton, Typography } from "@mui/material";
-import { IoLogoGithub } from "react-icons/io5";
-import React from "react";
+import { Grid, Typography } from "@mui/material";
+import React, { forwardRef } from "react";
 
-function Skills() {
-    const val = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const Skills = forwardRef((props, ref) => {
+    const val = [1, 2, 3, 4, 5, 6, 7, 8];
     const [GridSize, setGridSize] = React.useState(1);
     const handleResize = () => {
         setGridSize(window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 3 : 4);
@@ -59,6 +58,6 @@ function Skills() {
             ))}
         </>
     );
-}
+});
 
 export default Skills;

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Grid, Button, Drawer, List, ListItem, ListItemText, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, Grid, Button, Drawer, List, ListItem, IconButton, Typography } from '@mui/material';
 import { MdOutlineFileDownload, MdMenu } from 'react-icons/md';
 import '../../../../src/index.css';
-function Navbar() {
+import Logo from '../../../images/Logo.jpg';
+function Navbar({ ScrollAbout, scrollSkill, ScrollProject, ScrollExperience }) {
   const [isMobileView, setIsMobileView] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -24,7 +25,7 @@ function Navbar() {
 
   return (
     <>
-      <AppBar elevation={0} position="sticky" style={{backgroundColor:'white'}}>
+      <AppBar elevation={0} position="sticky" style={{ backgroundColor: 'white' }}>
         <Toolbar>
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid xs={1} sm={1} md={1} lg={2}>
@@ -32,24 +33,32 @@ function Navbar() {
             </Grid>
             <Grid item xs={6} sm={1} md={2} lg={2}>
               {/* Logo */}
-              <img src="logo.png" alt="Logo" style={{ height: 50 }} />
+              <img src={Logo} alt="Logo" style={{ height: 100, }} />
             </Grid>
             <Grid item xs={2} sm={7} md={6} lg={4}>
               {/* Links */}
               {!isMobileView ? (
                 <Grid container justifyContent="center">
                   <Grid item>
-                    <Button color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >About me</Typography> </Button>
+                    <Button
+                      onClick={ScrollAbout}
+                      color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >About me</Typography> </Button>
                   </Grid>
                   <Grid item>
-                    <Button color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >Skills</Typography></Button>
+                    <Button
+                      onClick={scrollSkill}
+                      color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >Skills</Typography></Button>
                   </Grid>
                   <Grid item>
                     <Typography fontFamily={'Sora'} ></Typography>
-                    <Button color="inherit"> <Typography fontFamily={'Sora'} fontWeight={'bold'} >Projects</Typography ></Button>
+                    <Button
+                      onClick={ScrollProject}
+                      color="inherit"> <Typography fontFamily={'Sora'} fontWeight={'bold'} >Projects</Typography></Button>
                   </Grid>
                   <Grid item>
-                    <Button color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >Experience</Typography></Button>
+                    <Button
+                      onClick={ScrollExperience}
+                      color="inherit"><Typography fontFamily={'Sora'} fontWeight={'bold'} >Experience</Typography></Button>
                   </Grid>
                 </Grid>
               ) : null}
