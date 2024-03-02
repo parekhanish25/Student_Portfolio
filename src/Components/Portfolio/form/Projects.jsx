@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 const ProjectsSection = () => {
-    const [projects, setProjects] = useState([{ id: 1, image: null, description: '', githubLink: '', demoLink: '' }]);
+    const [projects, setProjects] = useState([{ id: 1, Email: '21it101@charusat.edu.in', PName: '', Image: null, Description: '', Github: '', TechnologyStack: '' }]);
 
     const handleAddProject = () => {
         const newProjects = [...projects];
         const newId = projects.length + 1;
-        newProjects.push({ id: newId, image: null, description: '', githubLink: '', demoLink: '' });
+        newProjects.push({
+            id: newId, Email: '21it101@charusat.edu.in', PName: '', Image: null, Description: '', Github: '', TechnologyStack: ''
+        });
         setProjects(newProjects);
     };
     const handleDeleteProject = (id) => {
@@ -26,20 +29,28 @@ const ProjectsSection = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const newProjects = projects.map(project =>
-                    project.id === id ? { ...project, image: reader.result } : project
+                    project.id === id ? { ...project, Image: reader.result } : project
                 );
                 setProjects(newProjects);
             };
             reader.readAsDataURL(file);
         }
     };
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post('/AddProjects', projects);
+            console.log('Data sent to backend:', response.data);
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
+        }
+    }
     return (
         <Grid container spacing={3}>
             <Grid container marginTop={4}>
                 <Grid item lg={5}></Grid>
                 <Typography fontFamily={'Sora'} variant="h4">Projects</Typography>
             </Grid>
-            {projects.map(({ id, image, description, githubLink, demoLink }) => (
+            {projects.map(({ id, Image, description, githubLink, demoLink }) => (
                 <Grid item xs={12} key={id}>
                     <Grid container marginTop={2}>
                         <Grid item lg={6}>
@@ -53,12 +64,22 @@ const ProjectsSection = () => {
                             </IconButton>
                         </Grid>
                     </Grid>
+                    <Grid container marginBottom={3}>
+                        <Grid item lg={12}>
+                            <TextField
+                                label="Project Name"
+                                value={description}
+                                onChange={(e) => handleInputChange(id, 'PName', e.target.value)}
+                                fullWidth
+                            />
+                        </Grid>
+                    </Grid>
                     <Grid container>
                         <Grid item lg={12}>
                             <TextField
                                 label="Description"
                                 value={description}
-                                onChange={(e) => handleInputChange(id, 'description', e.target.value)}
+                                onChange={(e) => handleInputChange(id, 'Description', e.target.value)}
                                 fullWidth
                                 multiline
                                 rows={3}
@@ -70,7 +91,7 @@ const ProjectsSection = () => {
                             <TextField
                                 label="GitHub/Demo Link"
                                 value={githubLink}
-                                onChange={(e) => handleInputChange(id, 'githubLink', e.target.value)}
+                                onChange={(e) => handleInputChange(id, 'Github', e.target.value)}
                                 fullWidth
                             />
                         </Grid>
@@ -80,7 +101,7 @@ const ProjectsSection = () => {
                             <TextField
                                 label="Technology used"
                                 value={githubLink}
-                                onChange={(e) => handleInputChange(id, 'githubLink', e.target.value)}
+                                onChange={(e) => handleInputChange(id, 'TechnologyStack', e.target.value)}
                                 fullWidth
                             />
                         </Grid>
@@ -99,7 +120,7 @@ const ProjectsSection = () => {
                                     Upload Image
                                 </Button>
                             </label>
-                            {image && <img src={image} alt="Project" style={{ maxWidth: '100px', display: 'block', marginTop: '10px' }} />}
+                            {Image && <img src={Image} alt="Project" style={{ maxWidth: '100px', display: 'block', marginTop: '10px' }} />}
                         </Grid>
                     </Grid>
 
@@ -108,6 +129,9 @@ const ProjectsSection = () => {
             <Grid item xs={12}>
                 <Button onClick={handleAddProject} variant="outlined" color="primary">
                     Add Project
+                </Button>
+                <Button variant="contained" onClick={handleSubmit} component="span">
+                    Submit
                 </Button>
             </Grid>
         </Grid>

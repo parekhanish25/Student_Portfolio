@@ -1,28 +1,56 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, FormControl, InputLabel, MenuItem, Select, IconButton, Grid, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from 'axios';
 
 const DynamicDropdownList = () => {
-    const [dropdowns, setDropdowns] = useState([{ id: 1, selectedValue: '' }]);
+    const [dropdowns, setDropdowns] = useState([]);
+    const [skills, setSkills] = useState([{ id: 1, selectedValue: '' }]);
+
+    useEffect(() => {
+        handleFetch();
+    }, []);
+
+    const handleFetch = async () => {
+        try {
+            const res = await axios.get('/SkillsList');
+            if (res.data.status === 200) {
+                setDropdowns(res.data.Data);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const handleAddDropdown = () => {
-        const newDropdowns = [...dropdowns];
-        const newId = dropdowns.length + 1;
-        newDropdowns.push({ id: newId, selectedValue: '' });
-        setDropdowns(newDropdowns);
+        const newSkills = [...skills];
+        const newId = skills.length + 1;
+        newSkills.push({ id: newId, selectedValue: '' });
+        setSkills(newSkills);
     };
 
     const handleDeleteDropdown = (id) => {
-        const newDropdowns = dropdowns.filter(dropdown => dropdown.id !== id);
-        setDropdowns(newDropdowns);
+        const newSkills = skills.filter(skill => skill.id !== id);
+        setSkills(newSkills);
     };
 
     const handleChange = (event, id) => {
         const { value } = event.target;
-        const newDropdowns = dropdowns.map(dropdown =>
-            dropdown.id === id ? { ...dropdown, selectedValue: value } : dropdown
+        const newSkills = skills.map(skill =>
+            skill.id === id ? { ...skill, selectedValue: value } : skill
         );
-        setDropdowns(newDropdowns);
+        setSkills(newSkills);
+    };
+
+    const handleSubmit = async () => {
+        const Skill = skills.map(skill => skill.selectedValue);
+        const Data = { Email: '21it101@charusat.edu.in', Skill: Skill };
+        try {
+            const response = await axios.post('/AddSkills', Data);
+            console.log('Data sent to backend:', response.data);
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
+        }
     };
 
     return (
@@ -31,7 +59,7 @@ const DynamicDropdownList = () => {
             <Typography fontFamily={'Sora'} variant="h5" gutterBottom>
                 My <span style={{ fontWeight: 'bold' }}>Skills</span>
             </Typography>
-            {dropdowns.map(({ id, selectedValue }) => (
+            {skills.map(({ id, selectedValue }) => (
                 <Grid item xs={12} key={id}>
 
                     <Grid container justifyContent={'center'}>
@@ -50,9 +78,9 @@ const DynamicDropdownList = () => {
                             value={selectedValue}
                             onChange={(event) => handleChange(event, id)}
                         >
-                            <MenuItem value="option1">Option 1</MenuItem>
-                            <MenuItem value="option2">Option 2</MenuItem>
-                            <MenuItem value="option3">Option 3</MenuItem>
+                            {dropdowns.map((dropdown, index) => (
+                                <MenuItem key={index} value={dropdown.name}>{dropdown.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
@@ -62,6 +90,9 @@ const DynamicDropdownList = () => {
                 <Grid item lg={5}></Grid>
                 <Button onClick={handleAddDropdown} variant="outlined" color="primary">
                     Add Skills
+                </Button>
+                <Button onClick={handleSubmit} variant="contained" color="primary">
+                    Submit
                 </Button>
             </Grid>
         </Grid>

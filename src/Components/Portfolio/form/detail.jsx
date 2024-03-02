@@ -25,11 +25,11 @@ const DetailsSection = ({ submit }) => {
     const handleSubmit = async () => {
         try {
             const res = await axios.post('/AddBasicInfo', Form);
-            if (res.data.status == 200) {
+            if (res.data.status === 200) {
                 console.log(res.data);
             }
         } catch (e) {
-
+            console.log(e);
         }
     }
 

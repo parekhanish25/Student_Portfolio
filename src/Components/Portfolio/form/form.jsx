@@ -93,10 +93,10 @@ export default function Form() {
               <React.Fragment>
                 {/* {activeStep === 0 && <HeaderSection />} */}
                 {activeStep === 0 && <DetailsSection submit={completedSection[0]} />}
-                {activeStep === 1 && <EducationSection />}
-                {activeStep === 2 && <ExperienceForm />}
-                {activeStep === 3 && <AboutMeSection />}
-                {activeStep === 4 && <ProjectsSection />}
+                {activeStep === 1 && <EducationSection submit={completedSection[1]} />}
+                {activeStep === 2 && <ExperienceForm submit={completedSection[2]} />}
+                {activeStep === 3 && <AboutMeSection submit={completedSection[3]} />}
+                {activeStep === 4 && <ProjectsSection submit={completedSection[4]} />}
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Button
                     color="inherit"

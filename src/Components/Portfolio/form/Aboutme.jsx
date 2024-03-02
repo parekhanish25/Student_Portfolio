@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography, Avatar } from '@mui/material';
+import axios from 'axios';
 const AboutMeSection = () => {
     const [description, setDescription] = useState('');
     const [image, setImage] = useState(null);
@@ -17,6 +18,15 @@ const AboutMeSection = () => {
             reader.readAsDataURL(file);
         }
     };
+    const handleSubmit = async () => {
+        const Data = { Image: image, Description: description, Email: '21it101@charusat.edu.in' };
+        try {
+            const response = await axios.post('/AddAboutme', Data);
+            console.log('Data sent to backend:', response.data);
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
+        }
+    }
     return (
         <Grid container spacing={3}>
             <Grid item xs={12}>
@@ -46,12 +56,11 @@ const AboutMeSection = () => {
                         Upload Photo
                     </Button>
                 </label>
+
             </Grid>
-            {image && (
-                <Grid item xs={12}>
-                    <Avatar alt="Uploaded Image" src={image} />
-                </Grid>
-            )}
+            <Button variant="contained" onClick={handleSubmit} component="span">
+                Submit
+            </Button>
         </Grid>
     );
 };
