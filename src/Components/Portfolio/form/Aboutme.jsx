@@ -25,6 +25,10 @@ const AboutMeSection = () => {
         const { value } = event.target;
         setBranch(value);
     }
+    const handleCgpa = (event) => {
+        const { value } = event.target;
+        setCGPA(value);
+    }
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
     };
@@ -39,7 +43,7 @@ const AboutMeSection = () => {
         }
     };
     const handleSubmit = async () => {
-        const Data = { Image: image, Description: description, Email: '21it101@charusat.edu.in' };
+        const Data = { Image: image, Description: description, Branch: Branch, CGPA: CGPA, Email: '21it101@charusat.edu.in' };
         try {
             const response = await axios.post('/AddAboutme', Data);
             console.log('Data sent to backend:', response.data);
@@ -67,30 +71,30 @@ const AboutMeSection = () => {
                 />
             </Grid>
             <Grid item xs={12}>
-            <Grid container>
-                <Grid item xs={5}>
-                    <FormControl fullWidth>
-                        <Select
-                            value={Branch}
-                            name='Branch'
-                            onChange={(event) => handleChange(event)}
-                        >
-                            {Dropdown.map((dropdown, index) => (
-                                <MenuItem key={index} value={dropdown.name}>{dropdown.name}</MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={5}>
-                    <TextField
-                        label="CGPA"
-                        variant="outlined"
-                        fullWidth
-                        value={CGPA}
-                        onChange={handleDescriptionChange}
-                    />
-                </Grid>
+                <Grid container>
+                    <Grid item xs={5}>
+                        <FormControl fullWidth>
+                            <Select
+                                value={Branch}
+                                name='Branch'
+                                onChange={(event) => handleChange(event)}
+                            >
+                                {Dropdown.map((dropdown, index) => (
+                                    <MenuItem key={index} value={dropdown.name}>{dropdown.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={5}>
+                        <TextField
+                            label="CGPA"
+                            variant="outlined"
+                            fullWidth
+                            value={CGPA}
+                            onChange={handleCgpa}
+                        />
+                    </Grid>
                 </Grid>
             </Grid>
             <Grid container spacing={2} marginTop={1}>

@@ -12,9 +12,10 @@ import ExperienceForm from './Exprience';
 import AboutMeSection from './Aboutme';
 import ProjectsSection from './Projects';
 import { Checkmark } from 'react-checkmark'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import SoftSkillExam from './SoftSkill';
 export default function Form() {
-  const steps = [1, 2, 3, 4, 5]
+  const steps = [1, 2, 3, 4, 5, 6]
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
   const totalSteps = () => {
@@ -90,6 +91,7 @@ export default function Form() {
                 {activeStep === 2 && <ExperienceForm submit={activeStep === 2 && completed[activeStep]} />}
                 {activeStep === 3 && <AboutMeSection submit={activeStep === 3 && completed[activeStep]} />}
                 {activeStep === 4 && <ProjectsSection submit={activeStep === 4 && completed[activeStep]} />}
+                {activeStep === 5 && <SoftSkillExam submit={activeStep === 5 && completed[activeStep]} />}
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                   <Button
 
